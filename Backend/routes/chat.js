@@ -4,6 +4,13 @@ import getOpenAIAPIResponse from "../utils/openai.js";
 
 const router = express.Router();
 
+router.get("/hello", (req, res) => {
+    res.json({
+        success: true,
+        message: "Hello from chat router"
+    });
+});
+
 //test
 router.post("/test", async(req, res) => {
     try {
