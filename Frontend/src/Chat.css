@@ -1,0 +1,64 @@
+.chats{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:30px;
+    overflow-y:auto;
+}
+
+/* ---------------- Welcome Screen ---------------- */
+
+.welcome{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    margin-top:40px;
+}
+
+.welcome h1{
+    font-size:48px;
+    font-weight:700;
+    color:white;
+    margin-bottom:15px;
+}
+
+.welcome p{
+    font-size:18px;
+    color:#94A3B8;
+    margin-bottom:40px;
+}
+
+
+
+/* ---------------- User Message ---------------- */
+
+.userDiv{
+    display:flex;
+    justify-content:flex-end;
+    margin:15px 0;
+}
+
+.userMessage{
+    background:#6366F1;
+    color:white;
+    padding:15px 18px;
+    border-radius:18px 18px 5px 18px;
+    max-width:70%;
+    line-height:1.6;
+}
+
+/* ---------------- AI Message ---------------- */
+
+.gptDiv{
+    background:#1E293B;
+    color:white;
+    padding:18px;
+    border-radius:18px;
+    margin:15px 0;
+    max-width:80%;
+    line-height:1.7;
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}

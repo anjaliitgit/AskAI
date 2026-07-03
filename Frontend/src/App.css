@@ -1,0 +1,55 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --bg:#0F172A;
+    --sidebar:#111827;
+    --card:#1E293B;
+    --primary:#6366F1;
+    --secondary:#8B5CF6;
+    --text:#F8FAFC;
+    --gray:#94A3B8;
+}
+
+body{
+    background:linear-gradient(135deg,#020617,#0F172A,#111827);
+    color:var(--text);
+    overflow:hidden;
+}
+
+.app{
+    display:flex;
+    height:100vh;
+    width:100%;
+    background:transparent;
+}
+
+button{
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+input,textarea{
+    outline:none;
+}
+
+::-webkit-scrollbar{
+    width:7px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6366F1;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#111827;
+}
