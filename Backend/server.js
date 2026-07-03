@@ -13,6 +13,13 @@ app.use(cors());
 
 app.use("/api", chatRoutes);
 
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "AskAI Backend API is running."
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`server running on ${PORT}`);
     connectDB();
