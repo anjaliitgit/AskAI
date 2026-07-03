@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 
+app.get("/routes-test", (req, res) => {
+    res.json({
+        message: "Server is using the latest code!"
+    });
+});
+
 app.get("/hello", (req, res) => {
     res.send("Hello from AskAI!");
 });
