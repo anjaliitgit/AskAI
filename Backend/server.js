@@ -5,24 +5,14 @@ import mongoose from "mongoose";
 import chatRoutes from "./routes/chat.js";
 
 const app = express();
-// const PORT = 8080;
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
 
-app.get("/routes-test", (req, res) => {
-    res.json({
-        message: "Server is using the latest code!"
-    });
-});
-
-app.get("/hello", (req, res) => {
-    res.send("Hello from AskAI!");
-});
-
-app.use("/api", chatRoutes);
-console.log("✅ Chat routes loaded");
+// =========================
+// Test Routes
+// =========================
 
 app.get("/", (req, res) => {
     res.json({
@@ -31,44 +21,59 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`server running on ${PORT}`);
-    connectDB();
+app.get("/hello", (req, res) => {
+    res.json({
+        success: true,
+        message: "Hello from AskAI!"
+    });
 });
 
-const connectDB = async() => {
+app.get("/routes-test", (req, res) => {
+    res.json({
+        success: true,
+        message: "Latest server.js is running!"
+    });
+});
+
+// =========================
+// API Routes
+// =========================
+
+app.use("/api", chatRoutes);
+
+console.log("✅ Chat routes loaded");
+
+// =========================
+// Custom 404 Handler
+// =========================
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        path: req.originalUrl,
+        message: "Route not found in Express"
+    });
+});
+
+// =========================
+// Database Connection
+// =========================
+
+const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI);
-        console.log("Connected with Database!");
-    } catch(err) {
-        console.log("Failed to connect with Db", err);
+        console.log("✅ Connected with Database!");
+    } catch (err) {
+        console.error("❌ Failed to connect with DB:", err);
     }
-}
+};
 
+// =========================
+// Start Server
+// =========================
 
-// app.post("/test", async (req, res) => {
-//     const options = {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
-//         },
-//         body: JSON.stringify({
-//             model: "gpt-4o-mini",
-//             messages: [{
-//                 role: "user",
-//                 content: req.body.message
-//             }]
-//         })
-//     };
-
-//     try {
-//         const response = await fetch("https://api.openai.com/v1/chat/completions", options);
-//         const data = await response.json();
-//         //console.log(data.choices[0].message.content); //reply
-//         res.send(data.choices[0].message.content);
-//     } catch(err) {
-//         console.log(err);
-//     }
-// });
+app.listen(PORT, async () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    await connectDB();
+});
 
