@@ -11,6 +11,10 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 
+app.get("/hello", (req, res) => {
+    res.send("Hello from AskAI!");
+});
+
 app.use("/api", chatRoutes);
 
 app.get("/", (req, res) => {
