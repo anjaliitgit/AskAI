@@ -22,6 +22,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.use("/api", chatRoutes);
+console.log("✅ Chat routes loaded");
 
 app.get("/", (req, res) => {
     res.json({
