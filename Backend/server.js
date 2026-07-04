@@ -7,73 +7,55 @@ import chatRoutes from "./routes/chat.js";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.json());
+// ======================
+// Middleware
+// ======================
 app.use(cors());
+app.use(express.json());
 
-// =========================
-// Test Routes
-// =========================
-
-app.get("/", (req, res) => {
-    res.json({
-        success: true,
-        message: "AskAI Backend API is running."
-    });
-});
-
-app.get("/hello", (req, res) => {
-    res.json({
-        success: true,
-        message: "Hello from AskAI!"
-    });
-});
-
-app.get("/routes-test", (req, res) => {
-    res.json({
-        success: true,
-        message: "Latest server.js is running!"
-    });
-});
-
-// =========================
+// ======================
 // API Routes
-// =========================
-
+// ======================
 app.use("/api", chatRoutes);
 
-console.log("✅ Chat routes loaded");
+// ======================
+// Health Check Route
+// ======================
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "AskAI Backend API is running 🚀"
+    });
+});
 
-// =========================
-// Custom 404 Handler
-// =========================
-
+// ======================
+// 404 Route
+// ======================
 app.use((req, res) => {
     res.status(404).json({
         success: false,
-        path: req.originalUrl,
-        message: "Route not found in Express"
+        message: "Route not found"
     });
 });
 
-// =========================
+// ======================
 // Database Connection
-// =========================
-
+// ======================
 const connectDB = async () => {
     try {
         await mongoose.connect(process.env.MONGODB_URI);
-        console.log("✅ Connected with Database!");
+        console.log("✅ MongoDB connected successfully");
     } catch (err) {
-        console.error("❌ Failed to connect with DB:", err);
+        console.error("❌ Database connection failed:", err.message);
+        process.exit(1);
     }
 };
 
-// =========================
+// ======================
 // Start Server
-// =========================
-
+// ======================
 app.listen(PORT, async () => {
-    console.log(`🚀 Server running on port ${PORT}`);
     await connectDB();
+    console.log(`🚀 Server running on port ${PORT}`);
 });
 
